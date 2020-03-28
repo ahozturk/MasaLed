@@ -13,9 +13,14 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+
+        int sesSeviyesi = 0;
         public Form1()
         {
             InitializeComponent();
+            NAudio.CoreAudioApi.MMDeviceEnumerator en = new NAudio.CoreAudioApi.MMDeviceEnumerator();
+            var devices = en.EnumerateAudioEndPoints(NAudio.CoreAudioApi.DataFlow.All, NAudio.CoreAudioApi.DeviceState.Active);
+            comboBox1.Items.AddRange(devices.ToArray());
         }
         string[] ports = SerialPort.GetPortNames();
 
@@ -39,6 +44,7 @@ namespace WindowsFormsApp1
                 serialPort1.BaudRate = 9600;
                 serialPort1.Open();
                 Pnl_Baglan.Visible = false;
+                timer1.Enabled = true;
             }
             
         }
@@ -52,6 +58,40 @@ namespace WindowsFormsApp1
         private void Btn_red_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if(comboBox1.SelectedItem != null && serialPort1.IsOpen)
+            {
+                var singleDevice = (NAudio.CoreAudioApi.MMDevice)comboBox1.SelectedItem;
+                progressBar1.Value = (int)(singleDevice.AudioMeterInformation.MasterPeakValue * 100);
+                sesSeviyesi = ((int)(singleDevice.AudioMeterInformation.MasterPeakValue * 100));
+                label1.Text = sesSeviyesi.ToString();
+                
+                if(sesSeviyesi == 0)
+                {
+                    serialPort1.WriteLine("c");
+                }
+                else if(sesSeviyesi < (50 + ((trackBar1.Value - 5) * 5)))
+                {
+                    serialPort1.WriteLine("cr" + sesSeviyesi * 2.5 + "g0b0");
+                }
+                else if(sesSeviyesi < (75 + ((trackBar1.Value - 5) * 5)))
+                {
+                    serialPort1.WriteLine("cr0g" + sesSeviyesi * 2.5 + "b0");
+
+                }
+                else if(sesSeviyesi <= (100 + ((trackBar1.Value - 5) * 5)))
+                {
+                    serialPort1.WriteLine("cr0g0b" + sesSeviyesi * 2.5);
+
+                }
+            }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
         }
     }
 }

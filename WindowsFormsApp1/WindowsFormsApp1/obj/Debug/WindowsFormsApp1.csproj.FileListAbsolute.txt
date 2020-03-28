@@ -8,3 +8,6 @@ C:\Users\osaha\source\repos\MasaLed\MasaLed\WindowsFormsApp1\WindowsFormsApp1\ob
 C:\Users\osaha\source\repos\MasaLed\MasaLed\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
 C:\Users\osaha\source\repos\MasaLed\MasaLed\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\osaha\source\repos\MasaLed\MasaLed\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\osaha\source\repos\MasaLed\MasaLed\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\NAudio.dll
+C:\Users\osaha\source\repos\MasaLed\MasaLed\WindowsFormsApp1\WindowsFormsApp1\bin\Debug\NAudio.xml
+C:\Users\osaha\source\repos\MasaLed\MasaLed\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CopyComplete
