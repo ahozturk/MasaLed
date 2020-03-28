@@ -52,10 +52,17 @@
             this.Btn_music = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.Pnl_Baglan.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.SuspendLayout();
             // 
             // Btn_Connect
@@ -128,7 +135,7 @@
             this.panel1.Controls.Add(this.Btn_blue);
             this.panel1.Controls.Add(this.Btn_green);
             this.panel1.Controls.Add(this.Btn_red);
-            this.panel1.Location = new System.Drawing.Point(810, 37);
+            this.panel1.Location = new System.Drawing.Point(262, 15);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(355, 324);
             this.panel1.TabIndex = 6;
@@ -142,6 +149,7 @@
             this.Btn_pink.Size = new System.Drawing.Size(95, 90);
             this.Btn_pink.TabIndex = 13;
             this.Btn_pink.UseVisualStyleBackColor = false;
+            this.Btn_pink.Click += new System.EventHandler(this.Btn_pink_Click);
             // 
             // Btn_white
             // 
@@ -152,6 +160,7 @@
             this.Btn_white.Size = new System.Drawing.Size(95, 90);
             this.Btn_white.TabIndex = 11;
             this.Btn_white.UseVisualStyleBackColor = false;
+            this.Btn_white.Click += new System.EventHandler(this.Btn_white_Click);
             // 
             // Btn_purple
             // 
@@ -162,6 +171,7 @@
             this.Btn_purple.Size = new System.Drawing.Size(95, 90);
             this.Btn_purple.TabIndex = 10;
             this.Btn_purple.UseVisualStyleBackColor = false;
+            this.Btn_purple.Click += new System.EventHandler(this.Btn_purple_Click);
             // 
             // Btn_turquoise
             // 
@@ -172,6 +182,7 @@
             this.Btn_turquoise.Size = new System.Drawing.Size(95, 90);
             this.Btn_turquoise.TabIndex = 9;
             this.Btn_turquoise.UseVisualStyleBackColor = false;
+            this.Btn_turquoise.Click += new System.EventHandler(this.Btn_turquoise_Click);
             // 
             // Btn_yellow
             // 
@@ -182,6 +193,7 @@
             this.Btn_yellow.Size = new System.Drawing.Size(95, 90);
             this.Btn_yellow.TabIndex = 8;
             this.Btn_yellow.UseVisualStyleBackColor = false;
+            this.Btn_yellow.Click += new System.EventHandler(this.Btn_yellow_Click);
             // 
             // Btn_blue
             // 
@@ -192,6 +204,7 @@
             this.Btn_blue.Size = new System.Drawing.Size(95, 90);
             this.Btn_blue.TabIndex = 7;
             this.Btn_blue.UseVisualStyleBackColor = false;
+            this.Btn_blue.Click += new System.EventHandler(this.Btn_blue_Click);
             // 
             // Btn_green
             // 
@@ -202,6 +215,7 @@
             this.Btn_green.Size = new System.Drawing.Size(95, 90);
             this.Btn_green.TabIndex = 6;
             this.Btn_green.UseVisualStyleBackColor = false;
+            this.Btn_green.Click += new System.EventHandler(this.Btn_green_Click);
             // 
             // Btn_kapat
             // 
@@ -209,22 +223,24 @@
             this.Btn_kapat.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_kapat.BackgroundImage")));
             this.Btn_kapat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.Btn_kapat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Btn_kapat.Location = new System.Drawing.Point(675, 271);
+            this.Btn_kapat.Location = new System.Drawing.Point(127, 249);
             this.Btn_kapat.Name = "Btn_kapat";
             this.Btn_kapat.Size = new System.Drawing.Size(95, 90);
             this.Btn_kapat.TabIndex = 16;
             this.Btn_kapat.UseVisualStyleBackColor = false;
+            this.Btn_kapat.Click += new System.EventHandler(this.Btn_kapat_Click);
             // 
             // Btn_Azalt
             // 
             this.Btn_Azalt.BackColor = System.Drawing.Color.RosyBrown;
             this.Btn_Azalt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Btn_Azalt.Image = ((System.Drawing.Image)(resources.GetObject("Btn_Azalt.Image")));
-            this.Btn_Azalt.Location = new System.Drawing.Point(675, 154);
+            this.Btn_Azalt.Location = new System.Drawing.Point(127, 132);
             this.Btn_Azalt.Name = "Btn_Azalt";
             this.Btn_Azalt.Size = new System.Drawing.Size(95, 90);
             this.Btn_Azalt.TabIndex = 15;
             this.Btn_Azalt.UseVisualStyleBackColor = false;
+            this.Btn_Azalt.Click += new System.EventHandler(this.Btn_Azalt_Click);
             // 
             // Btn_Yukselt
             // 
@@ -232,11 +248,12 @@
             this.Btn_Yukselt.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Btn_Yukselt.BackgroundImage")));
             this.Btn_Yukselt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.Btn_Yukselt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Btn_Yukselt.Location = new System.Drawing.Point(675, 37);
+            this.Btn_Yukselt.Location = new System.Drawing.Point(127, 15);
             this.Btn_Yukselt.Name = "Btn_Yukselt";
             this.Btn_Yukselt.Size = new System.Drawing.Size(95, 90);
             this.Btn_Yukselt.TabIndex = 14;
             this.Btn_Yukselt.UseVisualStyleBackColor = false;
+            this.Btn_Yukselt.Click += new System.EventHandler(this.Btn_Yukselt_Click);
             // 
             // trackBar1
             // 
@@ -245,7 +262,6 @@
             this.trackBar1.Size = new System.Drawing.Size(196, 45);
             this.trackBar1.TabIndex = 17;
             this.trackBar1.Value = 5;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // Btn_music
             // 
@@ -254,11 +270,12 @@
             this.Btn_music.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.Btn_music.FlatAppearance.BorderSize = 0;
             this.Btn_music.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Btn_music.Location = new System.Drawing.Point(549, 47);
+            this.Btn_music.Location = new System.Drawing.Point(14, 15);
             this.Btn_music.Name = "Btn_music";
             this.Btn_music.Size = new System.Drawing.Size(95, 90);
             this.Btn_music.TabIndex = 18;
             this.Btn_music.UseVisualStyleBackColor = false;
+            this.Btn_music.Click += new System.EventHandler(this.Btn_music_Click);
             // 
             // timer1
             // 
@@ -269,17 +286,71 @@
             // 
             this.progressBar1.Location = new System.Drawing.Point(30, 282);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(357, 23);
+            this.progressBar1.Size = new System.Drawing.Size(196, 23);
             this.progressBar1.TabIndex = 19;
             // 
-            // label1
+            // panel2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 247);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "label1";
+            this.panel2.Controls.Add(this.numericUpDown3);
+            this.panel2.Controls.Add(this.panel1);
+            this.panel2.Controls.Add(this.numericUpDown2);
+            this.panel2.Controls.Add(this.numericUpDown1);
+            this.panel2.Controls.Add(this.Btn_Yukselt);
+            this.panel2.Controls.Add(this.Btn_music);
+            this.panel2.Controls.Add(this.Btn_Azalt);
+            this.panel2.Controls.Add(this.Btn_kapat);
+            this.panel2.Location = new System.Drawing.Point(530, 12);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(639, 370);
+            this.panel2.TabIndex = 20;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.BackColor = System.Drawing.Color.Red;
+            this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.numericUpDown1.ForeColor = System.Drawing.Color.White;
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Location = new System.Drawing.Point(37, 234);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(49, 26);
+            this.numericUpDown1.TabIndex = 21;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.BackColor = System.Drawing.Color.Lime;
+            this.numericUpDown2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.numericUpDown2.ForeColor = System.Drawing.Color.Black;
+            this.numericUpDown2.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Location = new System.Drawing.Point(37, 274);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(49, 26);
+            this.numericUpDown2.TabIndex = 22;
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.BackColor = System.Drawing.Color.DodgerBlue;
+            this.numericUpDown3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.numericUpDown3.ForeColor = System.Drawing.Color.White;
+            this.numericUpDown3.Increment = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Location = new System.Drawing.Point(37, 314);
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(49, 26);
+            this.numericUpDown3.TabIndex = 23;
+            this.numericUpDown3.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
             // 
             // Form1
             // 
@@ -287,14 +358,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1192, 406);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.Btn_music);
             this.Controls.Add(this.trackBar1);
-            this.Controls.Add(this.Btn_kapat);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.Btn_Azalt);
-            this.Controls.Add(this.Btn_Yukselt);
             this.Controls.Add(this.Pnl_Baglan);
             this.Controls.Add(this.Btn_reconnect);
             this.Name = "Form1";
@@ -303,6 +369,10 @@
             this.Pnl_Baglan.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,7 +402,10 @@
         private System.Windows.Forms.Button Btn_music;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numericUpDown3;
     }
 }
 

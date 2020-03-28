@@ -14,17 +14,23 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         int sesSeviyesi = 0;
+
         public Form1()
         {
             InitializeComponent();
             NAudio.CoreAudioApi.MMDeviceEnumerator en = new NAudio.CoreAudioApi.MMDeviceEnumerator();
             var devices = en.EnumerateAudioEndPoints(NAudio.CoreAudioApi.DataFlow.All, NAudio.CoreAudioApi.DeviceState.Active);
             comboBox1.Items.AddRange(devices.ToArray());
+            comboBox1.SelectedIndex = 2;
         }
         string[] ports = SerialPort.GetPortNames();
 
+        int model = 0;
+        float parlaklik = 2.5f;
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            panel2.Visible = false;
             foreach (string port in ports)
             {
                 comboBox2.Items.Add(port);
@@ -41,6 +47,7 @@ namespace WindowsFormsApp1
                 serialPort1.Open();
                 Pnl_Baglan.Visible = false;
                 timer1.Enabled = true;
+                panel2.Visible = true;
             }
         }
 
@@ -50,9 +57,7 @@ namespace WindowsFormsApp1
             Pnl_Baglan.Visible = true;
         }
 
-        private void Btn_red_Click(object sender, EventArgs e)
-        {
-        }
+        
 
         void Yazdir(int r, float ra, int g, float ga, int b, float ba)
         {
@@ -63,36 +68,171 @@ namespace WindowsFormsApp1
         {
             if(comboBox1.SelectedItem != null && serialPort1.IsOpen)
             {
-                var singleDevice = (NAudio.CoreAudioApi.MMDevice)comboBox1.SelectedItem;
-                progressBar1.Value = (int)(singleDevice.AudioMeterInformation.MasterPeakValue * 100);
-                sesSeviyesi = ((int)(singleDevice.AudioMeterInformation.MasterPeakValue * 100));
-                label1.Text = sesSeviyesi.ToString();
-                
-                if(sesSeviyesi == 0)
+                if (model == 0) 
                 {
-                    //serialPort1.WriteLine("c");
                     Yazdir(0, 0, 0, 0, 0, 0);
                 }
-                else if(sesSeviyesi < (50 + ((trackBar1.Value - 5) * 5)))
+                else if(model == 1)
                 {
-                    //serialPort1.WriteLine("cr" + sesSeviyesi * 2.5 + "g0b0");
-                    Yazdir(sesSeviyesi, 2.5f, 0, 0, 0, 0);
+                    var singleDevice = (NAudio.CoreAudioApi.MMDevice)comboBox1.SelectedItem;
+                    progressBar1.Value = (int)(singleDevice.AudioMeterInformation.MasterPeakValue * 100);
+                    sesSeviyesi = ((int)(singleDevice.AudioMeterInformation.MasterPeakValue * 100));
+
+                    if (sesSeviyesi == 0)
+                    {
+                        Yazdir(0, 0, 0, 0, 0, 0);
+                    }
+                    else if (sesSeviyesi < (50 + ((trackBar1.Value - 5) * 5)))
+                    {
+                        Yazdir(sesSeviyesi, 2.5f, 0, 0, 0, 0);
+                    }
+                    else if (sesSeviyesi < (75 + ((trackBar1.Value - 5) * 5)))
+                    {
+                        Yazdir(sesSeviyesi, 2.5f, sesSeviyesi, 1f, 0, 0);
+                    }
+                    else if (sesSeviyesi <= (100 + ((trackBar1.Value - 5) * 5)))
+                    {
+                        Yazdir(sesSeviyesi, 2.5f, sesSeviyesi, 2.5f, sesSeviyesi, 2.5f);
+                    }
                 }
-                else if(sesSeviyesi < (75 + ((trackBar1.Value - 5) * 5)))
+                else if(model == 2)
                 {
-                    //serialPort1.WriteLine("cr0g" + sesSeviyesi * 2.5 + "b0");
-                    Yazdir(sesSeviyesi, 2.5f, sesSeviyesi, 1f, 0, 0);
+                    Yazdir(100, parlaklik, 0, 0, 0, 0);
+                    timer1.Enabled = false;
                 }
-                else if(sesSeviyesi <= (100 + ((trackBar1.Value - 5) * 5)))
+                else if (model == 3)
                 {
-                    //serialPort1.WriteLine("cr0g0b" + sesSeviyesi * 2.5);
-                    Yazdir(sesSeviyesi, 2.5f, sesSeviyesi, 2.5f, sesSeviyesi, 2.5f);
+                    Yazdir(0, 0, 100, parlaklik, 0, 0);
+                    timer1.Enabled = false;
+                }
+                else if (model == 4)
+                {
+                    Yazdir(0, 0, 0, 0, 100, parlaklik);
+                    timer1.Enabled = false;
+                }
+                else if (model == 5)
+                {
+                    Yazdir(100, parlaklik, 50, parlaklik, 0, 0);
+                    timer1.Enabled = false;
+                }
+                else if (model == 6)
+                {
+                    Yazdir(0, 0, 100, parlaklik, 100, parlaklik);
+                    timer1.Enabled = false;
+                }
+                else if (model == 7)
+                {
+                    Yazdir(70, parlaklik, 0, 0, 100, parlaklik);
+                    timer1.Enabled = false;
+                }
+                else if (model == 8)
+                {
+                    Yazdir(100, parlaklik, 0, 0, 50, parlaklik);
+                    timer1.Enabled = false;
+                }
+                else if (model == 9)
+                {
+                    Yazdir(100, parlaklik, 100, parlaklik, 100, parlaklik);
+                    timer1.Enabled = false;
                 }
             }
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void Btn_Yukselt_Click(object sender, EventArgs e)
         {
+            if(parlaklik <= 2)
+            {
+                parlaklik += 0.5f;
+                timer1.Enabled = true;
+            }
+        }
+
+        private void Btn_Azalt_Click(object sender, EventArgs e)
+        {
+            if(parlaklik >= 1)
+            {
+                parlaklik -= 0.5f;
+                timer1.Enabled = true;
+            }
+        }
+
+        private void Btn_red_Click(object sender, EventArgs e)
+        {
+            model = 2;
+            timer1.Enabled = true;
+        }
+
+        private void Btn_green_Click(object sender, EventArgs e)
+        {
+            model = 3;
+            timer1.Enabled = true;
+        }
+
+        private void Btn_blue_Click(object sender, EventArgs e)
+        {
+            model = 4;
+            timer1.Enabled = true;
+        }
+
+        private void Btn_music_Click(object sender, EventArgs e)
+        {
+            model = 1;
+            timer1.Enabled = true;
+        }
+
+        private void Btn_yellow_Click(object sender, EventArgs e)
+        {
+            model = 5;
+            timer1.Enabled = true;
+        }
+
+        private void Btn_kapat_Click(object sender, EventArgs e)
+        {
+            model = 0;
+            timer1.Enabled = true;
+        }
+
+        private void Btn_turquoise_Click(object sender, EventArgs e)
+        {
+            model = 6;
+            timer1.Enabled = true;
+        }
+
+        private void Btn_purple_Click(object sender, EventArgs e)
+        {
+            model = 7;
+            timer1.Enabled = true;
+        }
+
+        private void Btn_pink_Click(object sender, EventArgs e)
+        {
+            model = 8;
+            timer1.Enabled = true;
+        }
+
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            Yazdir(Convert.ToInt32(numericUpDown1.Value), 2.5f, Convert.ToInt32(numericUpDown2.Value), 2.5f, Convert.ToInt32(numericUpDown3.Value), 2.5f);
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            Yazdir(Convert.ToInt32(numericUpDown1.Value), 2.5f, Convert.ToInt32(numericUpDown2.Value), 2.5f, Convert.ToInt32(numericUpDown3.Value), 2.5f);
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            Yazdir(Convert.ToInt32(numericUpDown1.Value), 2.5f, Convert.ToInt32(numericUpDown2.Value), 2.5f, Convert.ToInt32(numericUpDown3.Value), 2.5f);
+        }
+
+        private void Btn_white_Click(object sender, EventArgs e)
+        {
+            model = 9;
+            timer1.Enabled = true;
         }
     }
 }
