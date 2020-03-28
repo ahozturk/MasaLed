@@ -13,7 +13,6 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-
         int sesSeviyesi = 0;
         public Form1()
         {
@@ -33,9 +32,6 @@ namespace WindowsFormsApp1
             comboBox2.SelectedIndex = 0;
         }
 
-        
-
-
         private void Btn_Connect_Click(object sender, EventArgs e)
         {
             if(comboBox2.Text != "")
@@ -46,7 +42,6 @@ namespace WindowsFormsApp1
                 Pnl_Baglan.Visible = false;
                 timer1.Enabled = true;
             }
-            
         }
 
         private void Btn_reconnect_Click(object sender, EventArgs e)
@@ -57,7 +52,11 @@ namespace WindowsFormsApp1
 
         private void Btn_red_Click(object sender, EventArgs e)
         {
+        }
 
+        void Yazdir(int r, float ra, int g, float ga, int b, float ba)
+        {
+            serialPort1.WriteLine("cr" + r * ra + "g" + g * ga + "b" + b * ba);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -71,21 +70,23 @@ namespace WindowsFormsApp1
                 
                 if(sesSeviyesi == 0)
                 {
-                    serialPort1.WriteLine("c");
+                    //serialPort1.WriteLine("c");
+                    Yazdir(0, 0, 0, 0, 0, 0);
                 }
                 else if(sesSeviyesi < (50 + ((trackBar1.Value - 5) * 5)))
                 {
-                    serialPort1.WriteLine("cr" + sesSeviyesi * 2.5 + "g0b0");
+                    //serialPort1.WriteLine("cr" + sesSeviyesi * 2.5 + "g0b0");
+                    Yazdir(sesSeviyesi, 2.5f, 0, 0, 0, 0);
                 }
                 else if(sesSeviyesi < (75 + ((trackBar1.Value - 5) * 5)))
                 {
-                    serialPort1.WriteLine("cr0g" + sesSeviyesi * 2.5 + "b0");
-
+                    //serialPort1.WriteLine("cr0g" + sesSeviyesi * 2.5 + "b0");
+                    Yazdir(sesSeviyesi, 2.5f, sesSeviyesi, 1f, 0, 0);
                 }
                 else if(sesSeviyesi <= (100 + ((trackBar1.Value - 5) * 5)))
                 {
-                    serialPort1.WriteLine("cr0g0b" + sesSeviyesi * 2.5);
-
+                    //serialPort1.WriteLine("cr0g0b" + sesSeviyesi * 2.5);
+                    Yazdir(sesSeviyesi, 2.5f, sesSeviyesi, 2.5f, sesSeviyesi, 2.5f);
                 }
             }
         }

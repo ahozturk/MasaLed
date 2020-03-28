@@ -262,7 +262,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 32;
+            this.timer1.Interval = 150;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // progressBar1
