@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Windows.Forms.VisualStyles;
 
 namespace WindowsFormsApp1
 {
@@ -31,11 +32,33 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
             panel2.Visible = false;
-            foreach (string port in ports)
+            try
             {
-                comboBox2.Items.Add(port);
+                foreach (string port in ports)
+                {
+                    comboBox2.Items.Add(port);
+                }
+                comboBox2.SelectedIndex = 0;
             }
-            comboBox2.SelectedIndex = 0;
+            catch(Exception ex)
+            {
+            }
+
+            try
+            {
+                if (comboBox2.Text != "")
+                {
+                    serialPort1.PortName = comboBox2.Text;
+                    serialPort1.BaudRate = 9600;
+                    serialPort1.Open();
+                    Pnl_Baglan.Visible = false;
+                    timer1.Enabled = true;
+                    panel2.Visible = true;
+                }
+            }
+            catch(Exception ex)
+            {
+            }
         }
 
         private void Btn_Connect_Click(object sender, EventArgs e)
@@ -54,6 +77,19 @@ namespace WindowsFormsApp1
         private void Btn_reconnect_Click(object sender, EventArgs e)
         {
             serialPort1.Close();
+            ports = SerialPort.GetPortNames();
+            try
+            {
+                foreach (string port in ports)
+                {
+                    comboBox2.Items.Add(port);
+                }
+                comboBox2.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+
+            }
             Pnl_Baglan.Visible = true;
         }
 
@@ -62,6 +98,11 @@ namespace WindowsFormsApp1
         void Yazdir(int r, float ra, int g, float ga, int b, float ba)
         {
             serialPort1.WriteLine("cr" + r * ra + "g" + g * ga + "b" + b * ba);
+        }
+
+        float fParse(decimal n)
+        {
+            return float.Parse((n / 10).ToString());
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -84,15 +125,15 @@ namespace WindowsFormsApp1
                     }
                     else if (sesSeviyesi < (50 + ((trackBar1.Value - 5) * 5)))
                     {
-                        Yazdir(sesSeviyesi, 2.5f, 0, 0, 0, 0);
+                        Yazdir(sesSeviyesi, fParse(numericUpDown12.Value), sesSeviyesi, fParse(numericUpDown11.Value), sesSeviyesi, fParse(numericUpDown10.Value));
                     }
                     else if (sesSeviyesi < (75 + ((trackBar1.Value - 5) * 5)))
                     {
-                        Yazdir(sesSeviyesi, 2.5f, sesSeviyesi, 1f, 0, 0);
+                        Yazdir(sesSeviyesi, fParse(numericUpDown9.Value), sesSeviyesi, fParse(numericUpDown8.Value), sesSeviyesi, fParse(numericUpDown7.Value));
                     }
                     else if (sesSeviyesi <= (100 + ((trackBar1.Value - 5) * 5)))
                     {
-                        Yazdir(sesSeviyesi, 2.5f, sesSeviyesi, 2.5f, sesSeviyesi, 2.5f);
+                        Yazdir(sesSeviyesi, fParse(numericUpDown6.Value), sesSeviyesi, fParse(numericUpDown5.Value), sesSeviyesi, fParse(numericUpDown4.Value));
                     }
                 }
                 else if(model == 2)
@@ -233,6 +274,51 @@ namespace WindowsFormsApp1
         {
             model = 9;
             timer1.Enabled = true;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            panel3.Visible = checkBox1.Checked;
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.ShiftKey)
+            {
+                if (parlaklik <= 2)
+                {
+                    parlaklik += 0.5f;
+                    timer1.Enabled = true;
+                }
+            }
+            if (e.KeyCode == Keys.ControlKey)
+            {
+                if (parlaklik >= 1)
+                {
+                    parlaklik -= 0.5f;
+                    timer1.Enabled = true;
+                }
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                model = 0;
+                timer1.Enabled = true;
+            }
+            if (e.KeyCode == Keys.A)
+            {
+                model = 2;
+                timer1.Enabled = true;
+            }
+            if (e.KeyCode == Keys.E)
+            {
+                model = 5;
+                timer1.Enabled = true;
+            }
+            if (e.KeyCode == Keys.R)
+            {
+                model = 9;
+                timer1.Enabled = true;
+            }
         }
     }
 }
